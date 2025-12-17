@@ -1,0 +1,16 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.log
+
+# MAUI / VS
+.vs/
+.idea/
+
+# macOS
+.DS_Store
+
+
+

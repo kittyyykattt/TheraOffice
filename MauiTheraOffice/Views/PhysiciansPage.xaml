@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Maui.TheraOffice.Views.PhysiciansPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Physicians">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Clicked="OnAddClicked" />
+    </ContentPage.ToolbarItems>
+
+    <CollectionView x:Name="PhysiciansCollection"
+                    ItemsSource="{Binding}"
+                    SelectionMode="Single"
+                    SelectionChanged="OnSelectionChanged">
+        <CollectionView.ItemTemplate>
+    <DataTemplate>
+        <StackLayout Padding="10" Spacing="4">
+            <Label Text="{Binding FullName}"
+                   FontAttributes="Bold" />
+            <Label Text="{Binding LicenseNumber}" FontSize="12" />
+            <Label FontSize="12">
+                <Label.Text>
+                    <MultiBinding StringFormat="Grad: {0:d} • {1}">
+                        <Binding Path="GraduationDate" />
+                        <Binding Path="Specializations" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+
+            <HorizontalStackLayout Spacing="8" Margin="0,4,0,0">
+                <Button Text="Edit"
+                        FontSize="12"
+                        Padding="6,0"
+                        CommandParameter="{Binding .}"
+                        Clicked="OnInlineEditClicked" />
+                <Button Text="Delete"
+                        FontSize="12"
+                        Padding="6,0"
+                        TextColor="Red"
+                        CommandParameter="{Binding .}"
+                        Clicked="OnInlineDeleteClicked" />
+            </HorizontalStackLayout>
+        </StackLayout>
+    </DataTemplate>
+</CollectionView.ItemTemplate>
+
+    </CollectionView>
+
+</ContentPage>

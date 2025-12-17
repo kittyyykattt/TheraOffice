@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Maui.TheraOffice.Views.PatientsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Patients">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                     Clicked="OnAddPatientClicked" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="10" Spacing="10">
+
+        <SearchBar x:Name="PatientsSearchBar"
+                   Placeholder="Search patients..."
+                   SearchButtonPressed="OnSearchButtonPressed"
+                   TextChanged="OnSearchTextChanged" />
+
+        <ListView x:Name="PatientsListView"
+          ItemsSource="{Binding Patients}"
+          ItemSelected="OnPatientSelected"
+          HasUnevenRows="True"
+          SelectionMode="Single">
+
+    <ListView.ItemTemplate>
+        <DataTemplate>
+            <ViewCell>
+                <StackLayout Padding="8" Spacing="4">
+                    <Label Text="{Binding FullName}"
+                           FontAttributes="Bold" />
+                    <Label Text="{Binding Address}"
+                           FontSize="12" />
+                    <HorizontalStackLayout Spacing="8" Margin="0,4,0,0">
+                        <Button Text="Edit"
+                                FontSize="12"
+                                Padding="6,0"
+                                CommandParameter="{Binding .}"
+                                Clicked="OnInlineEditClicked" />
+                        <Button Text="Delete"
+                                FontSize="12"
+                                Padding="6,0"
+                                TextColor="Red"
+                                CommandParameter="{Binding .}"
+                                Clicked="OnInlineDeleteClicked" />
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+    </ListView.ItemTemplate>
+
+</ListView>
+
+    </StackLayout>
+</ContentPage>

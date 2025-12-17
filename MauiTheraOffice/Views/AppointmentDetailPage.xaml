@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Maui.TheraOffice.Views.AppointmentDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Appointment Detail"
+    BackgroundColor="#F5F5F8">
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="10">
+
+            <Label x:Name="ErrorLabel"
+                   TextColor="Red"
+                   IsVisible="False" />
+
+            <Label Text="Patient" />
+            <Picker x:Name="PatientPicker"
+                    ItemDisplayBinding="{Binding FullName}" />
+
+            <Label Text="Physician" />
+            <Picker x:Name="PhysicianPicker"
+                    ItemDisplayBinding="{Binding FullName}" />
+
+            <Label Text="Date" />
+            <DatePicker x:Name="DatePicker" />
+
+            <Label Text="Start Time" />
+            <TimePicker x:Name="StartTimePicker" />
+
+            <Label Text="End Time" />
+            <TimePicker x:Name="EndTimePicker" />
+
+<Label Text="Room" />
+<Entry x:Name="RoomEntry"
+       Text="{Binding Room}" />
+
+<Label Text="Reason" />
+<Entry x:Name="ReasonEntry"
+       Text="{Binding Reason}" />
+
+
+            <Frame Margin="0,20,0,0" Padding="10" BorderColor="Gray" CornerRadius="8">
+                <VerticalStackLayout Spacing="8">
+                    <HorizontalStackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                        <Label Text="Diagnoses"
+                               FontAttributes="Bold"
+                               FontSize="18"
+                               HorizontalOptions="StartAndExpand" />
+                        <Button Text="Add"
+                                Clicked="OnAddDiagnosisClicked"
+                                HorizontalOptions="End" />
+                    </HorizontalStackLayout>
+
+                    <CollectionView x:Name="DiagnosesCollection">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="4" ColumnDefinitions="*,Auto">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding Text}"
+                                           LineBreakMode="WordWrap" />
+                                    <Button Grid.Column="1"
+                                            Text="Delete"
+                                            FontSize="12"
+                                            TextColor="Red"
+                                            Padding="6,0"
+                                            Clicked="OnDeleteDiagnosisClicked" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Margin="0,20,0,0" Padding="10" BorderColor="Gray" CornerRadius="8">
+                <VerticalStackLayout Spacing="8">
+                    <HorizontalStackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                        <Label Text="Treatments"
+                               FontAttributes="Bold"
+                               FontSize="18"
+                               HorizontalOptions="StartAndExpand" />
+                        <Button Text="Add"
+                                Clicked="OnAddTreatmentClicked"
+                                HorizontalOptions="End" />
+                    </HorizontalStackLayout>
+
+                    <Label x:Name="TotalCostLabel"
+                           FontAttributes="Italic"
+                           FontSize="14"
+                           TextColor="DarkGreen"
+                           Text="Total Cost: $0.00" />
+
+                    <CollectionView x:Name="TreatmentsCollection">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="4" ColumnDefinitions="2*,Auto,Auto">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding Description}"
+                                           LineBreakMode="WordWrap" />
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Cost, StringFormat='${0:F2}'}"
+                                           HorizontalTextAlignment="End"
+                                           Margin="8,0" />
+                                    <Button Grid.Column="2"
+                                            Text="Delete"
+                                            FontSize="12"
+                                            TextColor="Red"
+                                            Padding="6,0"
+                                            Clicked="OnDeleteTreatmentClicked" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <HorizontalStackLayout Spacing="10" Margin="0,20,0,0">
+                <Button Text="Save"
+                        Clicked="OnSaveClicked" />
+                <Button Text="Delete"
+                        TextColor="Red"
+                        Clicked="OnDeleteClicked" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+

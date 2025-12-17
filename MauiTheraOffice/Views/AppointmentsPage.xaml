@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Maui.TheraOffice.Views.AppointmentsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:conv="clr-namespace:Maui.TheraOffice.Converters"
+    Title="Appointments">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:TodayAppointmentColorConverter x:Key="TodayAppointmentColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                     Clicked="OnAddClicked" />
+    </ContentPage.ToolbarItems>
+
+    <VerticalStackLayout Padding="10" Spacing="10">
+
+        
+        <HorizontalStackLayout Spacing="8">
+            <Label Text="Sort by:" VerticalOptions="Center" />
+
+            <Picker x:Name="SortPicker"
+                    WidthRequest="160"
+                    SelectedIndexChanged="OnSortChanged">
+                <Picker.Items>
+                    <x:String>Start Time</x:String>
+                    <x:String>Reason</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Desc" VerticalOptions="Center" />
+            <Switch x:Name="DescendingSwitch"
+                    Toggled="OnSortChanged" />
+        </HorizontalStackLayout>
+
+        <CollectionView x:Name="AppointmentsCollection"
+                        SelectionMode="Single"
+                        SelectionChanged="OnSelectionChanged">
+            <CollectionView.ItemTemplate>
+    <DataTemplate>
+        <StackLayout Padding="10"
+                     BackgroundColor="{Binding StartTime,
+                         Converter={StaticResource TodayAppointmentColorConverter}}">
+            <Label FontAttributes="Bold"
+                   Text="{Binding Reason}" />
+            <Label FontSize="12">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0:g} - {1:t}">
+                        <Binding Path="StartTime" />
+                        <Binding Path="EndTime" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+            <Label FontSize="12"
+                   Text="{Binding Room, StringFormat='Room: {0}'}" />
+
+            <HorizontalStackLayout Spacing="8" Margin="0,8,0,0">
+                <Button Text="Edit"
+                        FontSize="12"
+                        Padding="6,0"
+                        CommandParameter="{Binding .}"
+                        Clicked="OnInlineEditClicked" />
+                <Button Text="Delete"
+                        FontSize="12"
+                        Padding="6,0"
+                        TextColor="Red"
+                        CommandParameter="{Binding .}"
+                        Clicked="OnInlineDeleteClicked" />
+            </HorizontalStackLayout>
+        </StackLayout>
+    </DataTemplate>
+</CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>
