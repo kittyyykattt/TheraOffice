@@ -7,6 +7,13 @@ Designed to simulate real-world clinical workflows, TheraOffice demonstrates ful
 
 ---
 
+## Preview
+
+<p align="center">
+  <img src="assets/theraOffice-ex.png" width="800"/>
+</p>
+
+
 ## Overview
 
 TheraOffice separates presentation and data layers using a RESTful architecture:
